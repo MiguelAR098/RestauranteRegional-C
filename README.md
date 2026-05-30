@@ -37,7 +37,7 @@ Todas as informações são armazenadas em arquivos texto, garantindo a persist�
 ## 📂 Estrutura de Arquivos
 
 ```text
-SaborNordeste/
+RestauranteRegional-C/
 │
 ├── src/
 │   ├── main.c

@@ -52,7 +52,7 @@ RestauranteRegional-C/
 │   ├── pedidos.h
 │   └── relatorios.h
 │
-├── dados/
+├── data/
 │   ├── clientes.txt
 │   ├── pratos.txt
 │   └── pedidos.txt

@@ -96,6 +96,26 @@ RestauranteRegional-C/
         <img src="https://github.com/Donkaua.png" width="80px;" alt="Kauã"/><br>
         <sub><b>Kauã César</b></sub>
       </a>
+      <td align="center">
+      <a href="https://github.com/Adrews1">
+        <img src="https://github.com/Adrews1.png" width="80px;" alt="Adrews"/><br>
+        <sub><b>Adrews Cordeiro</b></sub>
+      </a>
+        <td align="center">
+      <a href="https://github.com/elisangelacsantos">
+        <img src="https://github.com/elisangelacsantos.png" width="80px;" alt="Elisangela"/><br>
+        <sub><b>Elisangela Cristina</b></sub>
+      </a>
+        <td align="center">
+      <a href="https://github.com/misaelsilva1">
+        <img src="https://github.com/misaelsilva1.png" width="80px;" alt="Misael"/><br>
+        <sub><b>Misael José</b></sub>
+      </a>
+        <td align="center">
+      <a href="https://github.com/Karen-aa12">
+        <img src="https://github.com/Karen-aa12.png" width="80px;" alt="Karen"/><br>
+        <sub><b>Karen Evelyn</b></sub>
+      </a>
   </tr>
 </table>
 

@@ -1,13 +1,22 @@
 TARGET = restaurante
-
-CC = cc
-
+CC = gcc
 CFLAGS = -Wall -Wextra -std=c99
 
-SCRS = $(wildcard *.c) $(wildcard src/*.c)
+# Detecta o Sistema Operacional
+ifeq ($(OS),Windows_NT)
+    # Configurações para Windows
+    RM = del /Q /F
+    EXE = .exe
+else
+    # Configurações para Linux/macOS
+    RM = rm -f
+    EXE = 
+endif
+
+SRCS = $(wildcard *.c) $(wildcard src/*.c)
 
 all:
-	$(CC) $(CFLAGS) $(SCRS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)$(EXE)
 
 clean:
-	rm -f $(TARGET)
+	$(RM) $(TARGET)$(EXE)

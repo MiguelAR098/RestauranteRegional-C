@@ -1,6 +1,8 @@
 TARGET = restaurante
+
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+
+CFLAGS = -Wall -Wextra -std=c99 -Iinclude
 
 # Detecta o Sistema Operacional
 ifeq ($(OS),Windows_NT)

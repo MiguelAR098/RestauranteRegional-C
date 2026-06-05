@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <locale.h>
+#include "administradores.h"
+#include "utils.h"
 
 // ================= Protótipos ================= //
 
@@ -11,13 +14,11 @@ void iniciarSistema();
 void realizarLogin();
 void menuAdministrador();
 
-// Administradores
-void registrarAdministrador();
-int loginAdministrador();
-
 // ================= Main ================= //
 
 int main() {
+
+    setlocale(LC_ALL, "");
 
     iniciarSistema();
 
@@ -31,6 +32,8 @@ void iniciarSistema() {
     int opcao;
 
     do {
+
+        limparTela();
 
         opcao = menuLogin();
 
@@ -49,7 +52,8 @@ void iniciarSistema() {
                 break;
 
             default:
-                printf("\nOpcao invalida!\n");
+                printf("\nOpção inválida!\n");
+                pausar();
         }
 
     } while(opcao != 3);
@@ -57,15 +61,21 @@ void iniciarSistema() {
 
 void realizarLogin() {
 
+    limparTela();
+
     if(loginAdministrador()) {
 
         printf("\nLogin realizado com sucesso!\n");
+
+        pausar();
 
         menuAdministrador();
 
     } else {
 
-        printf("\nUsuario ou senha incorretos!\n");
+        printf("\nUsuário ou senha incorretos!\n");
+
+        pausar();
     }
 }
 
@@ -75,6 +85,8 @@ void menuAdministrador() {
 
     do {
 
+        limparTela();
+
         opcao = menu_Administrador();
 
         switch(opcao) {
@@ -82,6 +94,8 @@ void menuAdministrador() {
             case 1:
 
                 printf("\n=== Cadastro de Cliente ===\n");
+
+                pausar();
 
                 // cadastroCliente();
 
@@ -91,6 +105,8 @@ void menuAdministrador() {
 
                 printf("\n=== Cadastro de Pratos ===\n");
 
+                pausar();
+
                 // cadastroPrato();
 
                 break;
@@ -99,13 +115,17 @@ void menuAdministrador() {
 
                 printf("\n=== Realizar Pedido ===\n");
 
+                pausar();
+
                 // realizarPedido();
 
                 break;
 
             case 4:
 
-                printf("\n=== Relatorios ===\n");
+                printf("\n=== Relatórios ===\n");
+
+                pausar();
 
                 // gerarRelatorios();
 
@@ -115,11 +135,15 @@ void menuAdministrador() {
 
                 printf("\nLogout realizado!\n");
 
+                pausar();
+
                 break;
 
             default:
 
-                printf("\nOpcao invalida!\n");
+                printf("\nOpção inválida!\n");
+
+                pausar();
         }
 
     } while(opcao != 5);
@@ -156,26 +180,11 @@ int menu_Administrador() {
     printf("1 - Cadastro de Cliente\n");
     printf("2 - Cadastro de Pratos\n");
     printf("3 - Realizar Pedido\n");
-    printf("4 - Relatorios\n");
+    printf("4 - Relatórios\n");
     printf("5 - Logout\n");
 
     printf("Escolha: ");
     scanf("%d", &opcao);
 
     return opcao;
-}
-
-// ================= Administradores ================= //
-// IMPLEMENTAR EM administradores.c
-
-void registrarAdministrador() {
-
-    printf("\n[Funcao registrarAdministrador() ainda nao implementada]\n");
-}
-
-int loginAdministrador() {
-
-    printf("\n[Funcao loginAdministrador() ainda nao implementada]\n");
-
-    return 1;
 }

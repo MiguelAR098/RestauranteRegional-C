@@ -1,3 +1,5 @@
+# Sistema de Gerenciamento de Restaurante Regional
+
 Sistema de gerenciamento para restaurante regional desenvolvido em linguagem C como projeto acadêmico.
 
 ## 📋 Sobre o Projeto
@@ -9,6 +11,12 @@ Todas as informações são armazenadas em arquivos texto, garantindo a persist�
 ---
 
 ## 🚀 Funcionalidades
+
+### Administradores
+- Cadastro de administradores
+- Login de administradores
+- Controle de acesso ao sistema
+- Armazenamento em arquivo texto
 
 ### Clientes
 - Cadastro de clientes
@@ -34,29 +42,35 @@ Todas as informações são armazenadas em arquivos texto, garantindo a persist�
 
 ---
 
-## 📂 Estrutura de Arquivos
+## 📂 Estrutura Atual do Projeto
 
 ```text
 RestauranteRegional-C/
 │
 ├── src/
 │   ├── main.c
+│   ├── administradores.c
 │   ├── clientes.c
 │   ├── pratos.c
 │   ├── pedidos.c
-│   └── relatorios.c
+│   ├── relatorios.c
+│   └── utils.c
 │
 ├── include/
+│   ├── administradores.h
 │   ├── clientes.h
 │   ├── pratos.h
 │   ├── pedidos.h
-│   └── relatorios.h
+│   ├── relatorios.h
+│   └── utils.h
 │
 ├── data/
+│   ├── administradores.txt
 │   ├── clientes.txt
 │   ├── pratos.txt
 │   └── pedidos.txt
 │
+├── Makefile
 └── README.md
 ```
 
@@ -66,9 +80,52 @@ RestauranteRegional-C/
 
 | Arquivo | Finalidade |
 |----------|------------|
+| administradores.txt | Armazena os dados dos administradores |
 | clientes.txt | Armazena os dados dos clientes |
 | pratos.txt | Armazena os dados dos pratos |
 | pedidos.txt | Armazena os pedidos realizados |
+
+---
+
+## 🔐 Controle de Acesso
+
+O sistema possui um módulo de autenticação para administradores.
+
+### Funcionalidades
+
+- Cadastro de administradores
+- Login de administradores
+- Persistência dos dados em arquivo texto
+- Controle de acesso ao menu principal do sistema
+
+### Formato dos Dados
+
+```text
+usuario;senha
+```
+
+Exemplo:
+
+```text
+admin;senha123
+```
+
+---
+
+## 🧰 Utilitários do Sistema
+
+O projeto possui um módulo utilitário responsável por funções auxiliares utilizadas em diversos módulos do sistema.
+
+### Funções Disponíveis
+
+- Limpeza de tela
+- Pausa da execução para leitura de mensagens
+- Limpeza do buffer de entrada
+- Configuração de localização (locale)
+
+### Objetivo
+
+Padronizar comportamentos comuns e evitar repetição de código entre os módulos.
 
 ---
 
@@ -77,7 +134,9 @@ RestauranteRegional-C/
 - Linguagem C
 - Manipulação de arquivos texto
 - Estruturas de dados
-- Modularização com arquivos .c e .h
+- Modularização com arquivos `.c` e `.h`
+- Biblioteca `locale.h`
+- Makefile para automação da compilação
 
 ---
 
@@ -125,12 +184,14 @@ RestauranteRegional-C/
 
 ### Requisitos Funcionais
 
-- RF01: Cadastrar clientes.
-- RF02: Cadastrar pratos.
-- RF03: Registrar pedidos.
-- RF04: Consultar pedidos.
-- RF05: Gerar relatórios.
-- RF06: Salvar dados em arquivos texto.
+- RF01: Cadastrar administradores.
+- RF02: Realizar login de administradores.
+- RF03: Cadastrar clientes.
+- RF04: Cadastrar pratos.
+- RF05: Registrar pedidos.
+- RF06: Consultar pedidos.
+- RF07: Gerar relatórios.
+- RF08: Salvar dados em arquivos texto.
 
 ### Requisitos Não Funcionais
 
@@ -138,37 +199,77 @@ RestauranteRegional-C/
 - RNF02: Os dados devem ser persistidos em arquivos texto.
 - RNF03: O sistema deve possuir interface simples e intuitiva.
 - RNF04: O sistema deve ser desenvolvido em linguagem C.
+- RNF05: O sistema deve utilizar modularização com arquivos `.c` e `.h`.
 
 ---
 
-## ▶️ Como Executar
+## 🏗️ Arquitetura do Sistema
 
-Compile o projeto:
+O projeto foi organizado utilizando modularização em linguagem C.
+
+| Módulo | Responsabilidade |
+|----------|------------|
+| main | Controle do fluxo principal do sistema |
+| administradores | Cadastro e autenticação de administradores |
+| clientes | Gerenciamento de clientes |
+| pratos | Gerenciamento dos pratos do restaurante |
+| pedidos | Registro e controle dos pedidos |
+| relatorios | Geração de relatórios do sistema |
+| utils | Funções auxiliares reutilizáveis |
+
+Essa organização facilita a manutenção, reutilização de código e evolução futura do sistema.
+
+---
+
+## ⚙️ Compilação
+
+O projeto utiliza Makefile para automatizar a compilação.
+
+### Compilar
 
 ```bash
-gcc *.c -o restaurante
+make
 ```
 
-Execute:
+### Executar
+
+Linux/macOS:
 
 ```bash
 ./restaurante
+```
+
+Windows:
+
+```bash
+restaurante.exe
+```
+
+### Limpar arquivos compilados
+
+```bash
+make clean
 ```
 
 ---
 
 ## 📖 Fluxo Geral
 
-1. Carregar dados dos arquivos.
-2. Exibir menu principal.
-3. Permitir cadastro de clientes.
-4. Permitir cadastro de pratos.
-5. Permitir realização de pedidos.
-6. Gerar relatórios.
-7. Salvar alterações antes de encerrar.
+1. Inicializar o sistema.
+2. Configurar locale para suporte a caracteres acentuados.
+3. Exibir menu principal.
+4. Permitir cadastro de administradores.
+5. Realizar autenticação do administrador.
+6. Exibir menu administrativo.
+7. Permitir cadastro de clientes.
+8. Permitir cadastro de pratos.
+9. Permitir realização de pedidos.
+10. Gerar relatórios.
+11. Salvar alterações em arquivos texto.
+12. Encerrar o sistema.
 
 ---
 
 ## 🎓 Projeto Acadêmico
 
-Projeto desenvolvido para a disciplina de Programação em Linguagem C, utilizando conceitos de estruturas, funções, modularização e manipulação de arquivos.
+Projeto desenvolvido para a disciplina de Lógica Matemática e Algoritmo.

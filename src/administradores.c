@@ -19,6 +19,24 @@ void registrarAdministrador() {
     printf("Senha: ");
     scanf("%49s", senha);
 
+    // Usuário deve ser único
+    arquivo = fopen("data/administradores.txt", "r");
+    if (arquivo != NULL)
+    {
+        char usuarioArquivo[50], senhaArquivo[50];
+        while (fscanf(arquivo, "%49[^;];%49[^\n]\n", usuarioArquivo, senhaArquivo) == 2)
+        {
+            if (strcmp(usuario, usuarioArquivo) == 0)
+            {
+                fclose(arquivo);
+                printf("\nEste usuário já existe.\n");
+                pausar();
+                return;
+            }
+        }
+        fclose(arquivo);
+    }
+
     arquivo = fopen("data/administradores.txt", "a");
 
     if (arquivo == NULL)
@@ -72,10 +90,10 @@ int loginAdministrador() {
             fclose(arquivo);
             return 1;
         }
-        
     }
 
     fclose(arquivo);
     return 0;
 
 }
+

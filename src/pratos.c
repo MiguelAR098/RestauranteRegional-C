@@ -4,7 +4,7 @@
 #include "pedidos.h"
 #include "utils.h"
 
-//Fun��o para Cadastrar Pratos//
+//Função para Cadastrar Pratos//
 
 void cadastrarPrato()
 {
@@ -14,6 +14,14 @@ void cadastrarPrato()
 
     printf("Codigo: ");
     scanf("%d", &p.codigo);
+
+    // Proíbe código 0 (reservado para "não encontrado")
+    if (p.codigo == 0)
+    {
+        printf("\nCódigo 0 é inválido. Informe um código diferente de 0.\n");
+        pausar();
+        return;
+    }
 
     limparBuffer();
 
@@ -28,7 +36,37 @@ void cadastrarPrato()
     printf("Categoria: ");
     scanf(" %19[^\n]", p.categoria);
 
+    // Impede cadastro duplicado pelo código
+    arquivo = fopen("data/pratos.txt", "r");
+    if (arquivo != NULL)
+    {
+        Prato temp;
+        while (fscanf(arquivo,
+                      "%d;%49[^;];%f;%19[^\n]\n",
+                      &temp.codigo,
+                      temp.nome,
+                      &temp.preco,
+                      temp.categoria) == 4)
+        {
+            if (temp.codigo == p.codigo)
+            {
+                fclose(arquivo);
+                printf("\nJá existe um prato com este código.\n");
+                pausar();
+                return;
+            }
+        }
+        fclose(arquivo);
+    }
+
     arquivo = fopen("data/pratos.txt", "a");
+
+    if (arquivo == NULL)
+    {
+        printf("\nErro ao abrir o arquivo de pratos!\n");
+        pausar();
+        return;
+    }
 
     fprintf(arquivo,
             "%d;%s;%.2f;%s\n",
@@ -38,11 +76,11 @@ void cadastrarPrato()
             p.categoria);
 
     fclose(arquivo);
-    
+
     printf("\nPrato cadastrado!\n");
 }
 
-//Fun��o para Lista de Pratos//
+//Função para Lista de Pratos//
 
 void listarPratos()
 {
@@ -52,30 +90,31 @@ void listarPratos()
 
     arquivo = fopen("data/pratos.txt", "r");
 
-    if(arquivo == NULL)
+    if (arquivo == NULL)
     {
         printf("Nenhum prato cadastrado.\n");
         return;
     }
-    
+
     printf("\n===== Cardapio =====\n");
 
-    while(fscanf(arquivo,
-        "%d;%49[^;];%f;%19[^\n]\n",
-        &p.codigo,
-        p.nome,
-        &p.preco,
-        p.categoria) == 4)
+    while (fscanf(arquivo,
+                  "%d;%49[^;];%f;%19[^\n]\n",
+                  &p.codigo,
+                  p.nome,
+                  &p.preco,
+                  p.categoria) == 4)
     {
         printf("%d - %-20s R$ %.2f\n",
-        p.codigo,
-        p.nome,
-        p.preco);
+               p.codigo,
+               p.nome,
+               p.preco);
     }
+
     fclose(arquivo);
 }
 
-//Fun��o para Buscar Pratos//
+//Função para Buscar Pratos//
 
 Prato buscarPrato(int codigo)
 {
@@ -86,29 +125,29 @@ Prato buscarPrato(int codigo)
 
     arquivo = fopen("data/pratos.txt", "r");
 
-    if(arquivo == NULL)
-    return vazio;
+    if (arquivo == NULL)
+        return vazio;
 
-    while(fscanf(arquivo,
-                 "%d;%49[^;];%f;%19[^\n]\n",
-                &p.codigo,
-                p.nome,
-                &p.preco,
-                p.categoria) ==4)
+    while (fscanf(arquivo,
+                  "%d;%49[^;];%f;%19[^\n]\n",
+                  &p.codigo,
+                  p.nome,
+                  &p.preco,
+                  p.categoria) == 4)
     {
-        if(p.codigo == codigo)
+        if (p.codigo == codigo)
         {
             fclose(arquivo);
             return p;
         }
     }
-    
+
     fclose(arquivo);
 
     return vazio;
 }
 
-//Menu de pratos Desisto lkkkkkk//
+//Menu de pratos//
 
 void menuPratos()
 {
@@ -125,7 +164,7 @@ void menuPratos()
 
         scanf("%d", &op);
 
-        switch(op)
+        switch (op)
         {
             case 1:
                 limparTela();
@@ -139,5 +178,6 @@ void menuPratos()
                 break;
         }
 
-    } while(op != 0);
+    } while (op != 0);
 }
+

@@ -2,6 +2,8 @@
 #include <locale.h>
 #include "administradores.h"
 #include "utils.h"
+#include "pratos.h"
+#include "pedidos.h"
 
 // ================= Protótipos ================= //
 
@@ -105,19 +107,15 @@ void menuAdministrador() {
 
                 printf("\n=== Cadastro de Pratos ===\n");
 
-                pausar();
-
-                // cadastroPrato();
-
+                menuPratos();
+                
                 break;
 
             case 3:
 
                 printf("\n=== Realizar Pedido ===\n");
 
-                pausar();
-
-                // realizarPedido();
+                realizarPedido();
 
                 break;
 

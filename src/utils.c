@@ -23,8 +23,6 @@ void limparBuffer() {
 
 void pausar() {
 
-    limparBuffer();
-
     printf("\nPressione ENTER para continuar...");
 
     getchar();

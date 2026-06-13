@@ -8,6 +8,8 @@ O sistema tem como objetivo auxiliar o gerenciamento de um restaurante regional 
 
 Todas as informações são armazenadas em arquivos texto, garantindo a persistência dos dados mesmo após o encerramento do programa.
 
+- Acesse a [documentação](https://github.com/MiguelAR098/RestauranteRegional-C/blob/main/docs/DOCUMENTACAO.md) para informações mais detalhadas.
+
 ---
 
 ## 🚀 Funcionalidades
@@ -69,6 +71,11 @@ RestauranteRegional-C/
 │   ├── clientes.txt
 │   ├── pratos.txt
 │   └── pedidos.txt
+│
+├── docs/
+│   ├── images/
+│   │       └──fluxograma.png
+│   └── DOCUMENTACAO.md
 │
 ├── Makefile
 └── README.md

@@ -4,5 +4,6 @@
 void limparTela();
 void pausar();
 void limparBuffer();
+void removerNewline(char *str);
 
 #endif

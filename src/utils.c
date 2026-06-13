@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "utils.h"
 
 void limparTela() {
@@ -27,5 +28,17 @@ void pausar() {
     printf("\nPressione ENTER para continuar...");
 
     getchar();
+
+}
+
+void removerNewline(char *str) {
+
+    int tamanho = strlen(str);
+
+    if (tamanho > 0 && str[tamanho - 1] == '\n') {
+
+        str[tamanho - 1] = '\0';
+
+    }
 
 }

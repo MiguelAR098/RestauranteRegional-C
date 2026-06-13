@@ -3,20 +3,6 @@
 #include "clientes.h"
 #include "utils.h"
 
-#define MAX_CLIENTES 100
-#define TAM_NOME 100
-#define TAM_CPF 15
-#define TAM_TEL 20
-
-typedef struct {
-
-    int id;
-    char nome[TAM_NOME];
-    char cpf[TAM_CPF];
-    char telefone[TAM_TEL];
-
-} Cliente;
-
 // ================= Variáveis Globais ================= //
 
 Cliente clientes[MAX_CLIENTES];
@@ -182,4 +168,63 @@ void listarClientes() {
     }
 
     printf("\nTotal de clientes cadastrados: %d\n", totalClientes);
+}
+
+int menu_Clientes() {
+
+    int opcao;
+
+    printf("\n===== CLIENTES =====\n");
+    printf("1 - Cadastrar Cliente\n");
+    printf("2 - Listar Clientes\n");
+    printf("3 - Voltar\n");
+
+    printf("Escolha: ");
+    scanf("%d", &opcao);
+
+    limparBuffer();
+
+    return opcao;
+}
+
+void menuClientes() {
+
+    int opcao;
+
+    do {
+
+        limparTela();
+
+        opcao = menu_Clientes();
+
+        switch(opcao) {
+
+            case 1:
+
+                cadastrarCliente();
+
+                pausar();
+
+                break;
+
+            case 2:
+
+                listarClientes();
+
+                pausar();
+
+                break;
+
+            case 3:
+
+                break;
+
+            default:
+
+                printf("\nOpção inválida!\n");
+
+                pausar();
+        }
+
+    } while(opcao != 3);
 }

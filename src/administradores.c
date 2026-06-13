@@ -96,4 +96,3 @@ int loginAdministrador() {
     return 0;
 
 }
-

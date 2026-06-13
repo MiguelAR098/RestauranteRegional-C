@@ -2,6 +2,7 @@
 #include <locale.h>
 #include "administradores.h"
 #include "utils.h"
+#include "clientes.h"
 #include "pratos.h"
 #include "pedidos.h"
 
@@ -22,6 +23,7 @@ int main() {
 
     setlocale(LC_ALL, "");
 
+    carregarClientes();
     iniciarSistema();
 
     return 0;
@@ -69,6 +71,8 @@ void realizarLogin() {
 
         printf("\nLogin realizado com sucesso!\n");
 
+        limparBuffer();
+
         pausar();
 
         menuAdministrador();
@@ -76,6 +80,8 @@ void realizarLogin() {
     } else {
 
         printf("\nUsuário ou senha incorretos!\n");
+
+        limparBuffer();
 
         pausar();
     }
@@ -97,9 +103,7 @@ void menuAdministrador() {
 
                 printf("\n=== Cadastro de Cliente ===\n");
 
-                pausar();
-
-                // cadastroCliente();
+                menuClientes();
 
                 break;
 
@@ -133,7 +137,9 @@ void menuAdministrador() {
 
                 printf("\nLogout realizado!\n");
 
+                limparBuffer();
                 pausar();
+                limparTela();
 
                 break;
 

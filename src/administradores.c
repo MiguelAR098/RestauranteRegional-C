@@ -30,6 +30,7 @@ void registrarAdministrador() {
             {
                 fclose(arquivo);
                 printf("\nEste usuário já existe.\n");
+                limparBuffer();
                 pausar();
                 return;
             }
@@ -43,6 +44,7 @@ void registrarAdministrador() {
     {
         printf("Erro ao abrir o arquivo!\n");
 
+        limparBuffer();
         pausar();
 
         return;
@@ -54,8 +56,9 @@ void registrarAdministrador() {
 
     printf("\nAdministrador cadastrado com sucesso!\n");
 
+    limparBuffer();
     pausar();
-
+    limparTela();
 }
 
 int loginAdministrador() {

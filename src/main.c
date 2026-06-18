@@ -5,8 +5,10 @@
 #include "clientes.h"
 #include "pratos.h"
 #include "pedidos.h"
+#include "relatorios.h"
 
 // ================= Protótipos ================= //
+
 
 // Menus
 int menuLogin();
@@ -129,7 +131,7 @@ void menuAdministrador() {
 
                 pausar();
 
-                // gerarRelatorios();
+                gerarRelatorios();
 
                 break;
 

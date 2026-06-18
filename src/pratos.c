@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 #include "pratos.h"
 #include "pedidos.h"
 #include "utils.h"
@@ -18,7 +20,7 @@ void cadastrarPrato()
     // Proíbe código 0 (reservado para "não encontrado")
     if (p.codigo == 0)
     {
-        printf("\nCódigo 0 é inválido. Informe um código diferente de 0.\n");
+        printf("\nCodigo 0 invalido. Informe um codigo diferente de 0.\n");
         pausar();
         return;
     }
@@ -98,6 +100,14 @@ void listarPratos()
 
     printf("\n===== Cardapio =====\n");
 
+    if(hojeESexta())
+{
+    printf(
+    "\n SEXTA DO SABOR \n"
+    "20%% OFF nos Pratos Principais\n\n"
+    );
+}
+
     while (fscanf(arquivo,
                   "%d;%49[^;];%f;%19[^\n]\n",
                   &p.codigo,
@@ -108,7 +118,7 @@ void listarPratos()
         printf("%d - %-20s R$ %.2f\n",
                p.codigo,
                p.nome,
-               p.preco);
+               calcularPreco(p));
     }
 
     fclose(arquivo);
@@ -179,5 +189,41 @@ void menuPratos()
         }
 
     } while (op != 0);
+
+}
+// Fun�ao Relogio para sexta//
+    int hojeESexta(){
+        
+    time_t agora;
+
+    time(&agora);
+
+    struct tm *data =
+        localtime(&agora);
+
+    return data->tm_wday == 5;
+    }
+
+//Fun�ao do desconto do Relogio//
+
+    float calcularPreco(Prato p)
+{
+    float preco = p.preco;
+
+    if(
+        hojeESexta()
+        &&
+        (
+            strcmp(
+                p.categoria,
+                "Prato Principal"
+            ) == 0
+        )
+    )
+    {
+        preco *= 0.80;
+    }
+
+    return preco;
 }
 

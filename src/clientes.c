@@ -137,6 +137,22 @@ void cadastrarCliente() {
     printf("\nCliente cadastrado com sucesso!\n");
 }
 
+// ================= Consultas Auxiliares ================= //
+
+int buscarClientePorId(int id, Cliente *out) {
+
+    if (out == NULL) return 0;
+
+    for (int i = 0; i < totalClientes; i++) {
+        if (clientes[i].id == id) {
+            *out = clientes[i];
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 // ================= Listagem ================= //
 
 void listarClientes() {

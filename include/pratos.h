@@ -14,4 +14,7 @@ void listarPratos();
 Prato buscarPrato(int codigo);
 void menuPratos();
 
+float calcularPreco(Prato p);
+int hojeESexta();
+
 #endif

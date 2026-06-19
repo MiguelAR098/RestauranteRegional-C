@@ -66,13 +66,19 @@ void listarPratosRelatorio()
     }
 
     printf("\n==================================================================\n");
-    printf("%-8s %-25s %-12s %-20s\n",
+    printf("%-8s %-25s %-20s %-20s\n",
            "Código",
            "Nome",
            "Preço",
            "Categoria");
 
     printf("==================================================================\n");
+
+    if (hojeESexta())
+    {
+        printf("\n*** SEXTA DO SABOR ***\n");
+        printf("20%% OFF nos pratos principais!\n\n");
+    }
 
     while (
         fscanf(
@@ -85,13 +91,28 @@ void listarPratosRelatorio()
         ) == 4
     )
     {
-        printf(
-            "%-8d %-25s R$ %-8.2f %-20s\n",
-            p.codigo,
-            p.nome,
-            p.preco,
-            p.categoria
-        );
+        if (hojeESexta() &&
+            strcmp(p.categoria, "Prato Principal") == 0)
+        {
+            printf(
+                "%-8d %-25s R$ %.2f -> R$ %.2f %-20s\n",
+                p.codigo,
+                p.nome,
+                p.preco,
+                calcularPreco(p),
+                p.categoria
+            );
+        }
+        else
+        {
+            printf(
+                "%-8d %-25s R$ %.2f %-20s\n",
+                p.codigo,
+                p.nome,
+                p.preco,
+                p.categoria
+            );
+        }
     }
 
     fclose(arquivo);

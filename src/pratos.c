@@ -34,7 +34,7 @@ void cadastrarPrato()
     printf("Preco: ");
     p.preco = lerFloat();
 
-    printf("Categoria: ");
+    printf("Categoria (Prato Principal, Bebida, Sobremesa...): ");
     lerTexto(p.categoria, sizeof(p.categoria));
 
     // Impede cadastro duplicado pelo código
@@ -98,16 +98,37 @@ void exibirCardapio()
 
     printf("\n===== CARDÁPIO =====\n");
 
-    while (
-        fscanf(
-            arquivo,
-            "%d;%49[^;];%f;%19[^\n]\n",
-            &p.codigo,
+    if (hojeESexta())
+    {
+        printf(
+            "\n*** SEXTA DO SABOR ***\n"
+            "20%% OFF nos pratos principais!\n\n"
+        );
+    }
+
+while (
+    fscanf(
+        arquivo,
+        "%d;%49[^;];%f;%19[^\n]\n",
+        &p.codigo,
+        p.nome,
+        &p.preco,
+        p.categoria
+    ) == 4
+)
+{
+    if (hojeESexta() &&
+        strcmp(p.categoria, "Prato Principal") == 0)
+    {
+        printf(
+            "%d - %-20s R$ %.2f -> R$ %.2f\n",
+            p.codigo,
             p.nome,
-            &p.preco,
-            p.categoria
-        ) == 4
-    )
+            p.preco,
+            calcularPreco(p)
+        );
+    }
+    else
     {
         printf(
             "%d - %-20s R$ %.2f\n",
@@ -116,6 +137,7 @@ void exibirCardapio()
             p.preco
         );
     }
+}
 
     fclose(arquivo);
 }
@@ -151,4 +173,30 @@ Prato buscarPrato(int codigo)
     fclose(arquivo);
 
     return vazio;
+}
+
+int hojeESexta()
+{
+    time_t agora;
+
+    time(&agora);
+
+    struct tm *data = localtime(&agora);
+
+    return data->tm_wday == 5;
+}
+
+float calcularPreco(Prato p)
+{
+    float preco = p.preco;
+
+    if (
+        hojeESexta() &&
+        strcmp(p.categoria, "Prato Principal") == 0
+    )
+    {
+        preco *= 0.80f;
+    }
+
+    return preco;
 }

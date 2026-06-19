@@ -7,13 +7,94 @@
 #include "utils.h"
 
 void listarClientesRelatorio() {
-    printf("\n=== Relatório: Lista de Clientes ===\n");
-    listarClientes();
+
+    FILE *arquivo;
+
+    int id;
+    char nome[100];
+    char cpf[15];
+    char telefone[20];
+
+    arquivo = fopen("data/clientes.txt", "r");
+
+    if(arquivo == NULL) {
+
+        printf("\nNenhum cliente cadastrado.\n");
+        return;
+    }
+
+    printf("\n==========================================================================\n");
+    printf("%-5s %-30s %-15s %-15s\n",
+           "ID", "Nome", "CPF", "Telefone");
+    printf("==========================================================================\n");
+
+    while(
+        fscanf(
+            arquivo,
+            "%d;%99[^;];%14[^;];%19[^\n]\n",
+            &id,
+            nome,
+            cpf,
+            telefone
+        ) == 4
+    ) {
+
+        printf(
+            "%-5d %-30s %-15s %-15s\n",
+            id,
+            nome,
+            cpf,
+            telefone
+        );
+    }
+
+    fclose(arquivo);
 }
 
-void listarPratosRelatorio() {
-    printf("\n=== Relatório: Lista de Pratos ===\n");
-    listarPratos();
+void listarPratosRelatorio()
+{
+    FILE *arquivo;
+
+    Prato p;
+
+    arquivo = fopen("data/pratos.txt", "r");
+
+    if (arquivo == NULL)
+    {
+        printf("\nNenhum prato cadastrado.\n");
+        return;
+    }
+
+    printf("\n==================================================================\n");
+    printf("%-8s %-25s %-12s %-20s\n",
+           "Código",
+           "Nome",
+           "Preço",
+           "Categoria");
+
+    printf("==================================================================\n");
+
+    while (
+        fscanf(
+            arquivo,
+            "%d;%49[^;];%f;%19[^\n]\n",
+            &p.codigo,
+            p.nome,
+            &p.preco,
+            p.categoria
+        ) == 4
+    )
+    {
+        printf(
+            "%-8d %-25s R$ %-8.2f %-20s\n",
+            p.codigo,
+            p.nome,
+            p.preco,
+            p.categoria
+        );
+    }
+
+    fclose(arquivo);
 }
 
 // Lê data/pedidos.txt no formato: IDPedido;IDCliente;ValorTotal
@@ -98,15 +179,7 @@ void gerarRelatorios() {
         printf("0 - Voltar\n\n");
         printf("Escolha: ");
 
-        if (scanf("%d", &opcao) != 1) {
-            printf("\nEntrada inválida.\n");
-            limparBuffer();
-            pausar();
-            opcao = -1;
-            continue;
-        }
-
-        limparBuffer();
+        opcao = lerInteiro();
 
         switch (opcao) {
             case 1:
@@ -134,4 +207,3 @@ void gerarRelatorios() {
         }
     } while (opcao != 0);
 }
-

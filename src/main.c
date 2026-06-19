@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include <locale.h>
-#ifdef _WIN32
-    #include <windows.h>
-#endif
 #include "administradores.h"
 #include "utils.h"
 #include "clientes.h"
@@ -25,12 +22,8 @@ void menuAdministrador();
 
 int main() {
 
-    #indef _WIN32
-        SetConsoleOutputCP(CP_UTF8);
-        SetConsoleCP(CP_UTF8);
-    #else
-        setlocale(LC_ALL, "");
-    #endif
+    setlocale(LC_ALL, "");
+    
     carregarClientes();
     iniciarSistema();
 

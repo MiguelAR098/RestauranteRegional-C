@@ -8,12 +8,15 @@
 
 void cadastrarPrato()
 {
+
+    limparTela();
+
     FILE *arquivo;
 
     Prato p;
 
     printf("Codigo: ");
-    scanf("%d", &p.codigo);
+    p.codigo = lerInteiro();
 
     // Proíbe código 0 (reservado para "não encontrado")
     if (p.codigo == 0)
@@ -23,18 +26,14 @@ void cadastrarPrato()
         return;
     }
 
-    limparBuffer();
-
     printf("Nome: ");
-    scanf(" %49[^\n]", p.nome);
+    lerTexto(p.nome, sizeof(p.nome));
 
     printf("Preco: ");
-    scanf("%f", &p.preco);
-
-    limparBuffer();
+    p.preco = lerFloat();
 
     printf("Categoria: ");
-    scanf(" %19[^\n]", p.categoria);
+    lerTexto(p.categoria, sizeof(p.categoria));
 
     // Impede cadastro duplicado pelo código
     arquivo = fopen("data/pratos.txt", "r");
@@ -80,35 +79,40 @@ void cadastrarPrato()
     printf("\nPrato cadastrado!\n");
 }
 
-//Função para Lista de Pratos//
+//Função para Exibir Cardápio//
 
-void listarPratos()
+void exibirCardapio()
 {
     FILE *arquivo;
-
     Prato p;
 
     arquivo = fopen("data/pratos.txt", "r");
 
     if (arquivo == NULL)
     {
-        printf("Nenhum prato cadastrado.\n");
+        printf("\nNenhum prato cadastrado.\n");
         return;
     }
 
-    printf("\n===== Cardapio =====\n");
+    printf("\n===== CARDÁPIO =====\n");
 
-    while (fscanf(arquivo,
-                  "%d;%49[^;];%f;%19[^\n]\n",
-                  &p.codigo,
-                  p.nome,
-                  &p.preco,
-                  p.categoria) == 4)
+    while (
+        fscanf(
+            arquivo,
+            "%d;%49[^;];%f;%19[^\n]\n",
+            &p.codigo,
+            p.nome,
+            &p.preco,
+            p.categoria
+        ) == 4
+    )
     {
-        printf("%d - %-20s R$ %.2f\n",
-               p.codigo,
-               p.nome,
-               p.preco);
+        printf(
+            "%d - %-20s R$ %.2f\n",
+            p.codigo,
+            p.nome,
+            p.preco
+        );
     }
 
     fclose(arquivo);
@@ -146,38 +150,3 @@ Prato buscarPrato(int codigo)
 
     return vazio;
 }
-
-//Menu de pratos//
-
-void menuPratos()
-{
-    int op;
-
-    do
-    {
-        limparTela();
-
-        printf("\n===== PRATOS =====\n");
-        printf("1 - Cadastrar\n");
-        printf("2 - Listar\n");
-        printf("0 - Voltar\n");
-
-        scanf("%d", &op);
-
-        switch (op)
-        {
-            case 1:
-                limparTela();
-                cadastrarPrato();
-                pausar();
-                break;
-
-            case 2:
-                listarPratos();
-                pausar();
-                break;
-        }
-
-    } while (op != 0);
-}
-

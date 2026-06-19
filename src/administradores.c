@@ -14,10 +14,10 @@ void registrarAdministrador() {
     printf("\n=== Cadastro do Administrador ===\n");
 
     printf("Usuário: ");
-    scanf("%49s", usuario);
+    lerTexto(usuario, sizeof(usuario));
 
     printf("Senha: ");
-    scanf("%49s", senha);
+    lerTexto(senha, sizeof(senha));
 
     // Usuário deve ser único
     arquivo = fopen("data/administradores.txt", "r");
@@ -30,7 +30,6 @@ void registrarAdministrador() {
             {
                 fclose(arquivo);
                 printf("\nEste usuário já existe.\n");
-                limparBuffer();
                 pausar();
                 return;
             }
@@ -43,8 +42,6 @@ void registrarAdministrador() {
     if (arquivo == NULL)
     {
         printf("Erro ao abrir o arquivo!\n");
-
-        limparBuffer();
         pausar();
 
         return;
@@ -56,7 +53,6 @@ void registrarAdministrador() {
 
     printf("\nAdministrador cadastrado com sucesso!\n");
 
-    limparBuffer();
     pausar();
     limparTela();
 }
@@ -70,10 +66,10 @@ int loginAdministrador() {
     printf("\n=== Login ===\n");
 
     printf("Usuário: ");
-    scanf("%49s", usuarioDigitado);
+    lerTexto(usuarioDigitado, sizeof(usuarioDigitado));
 
     printf("Senha: ");
-    scanf("%49s", senhaDigitada);
+    lerTexto(senhaDigitada, sizeof(senhaDigitada));
 
     arquivo = fopen("data/administradores.txt", "r");
 

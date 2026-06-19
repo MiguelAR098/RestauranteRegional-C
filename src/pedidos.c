@@ -20,16 +20,10 @@ void adicionarAoCarrinho()
         return;
     }
 
-    listarPratos();
+    exibirCardapio();
 
     printf("\nCodigo do prato: ");
-    if (scanf("%d", &codigo) != 1)
-    {
-        printf("\nEntrada invalida.\n");
-        limparBuffer();
-        pausar();
-        return;
-    }
+    codigo = lerInteiro();
 
     Prato pratoEscolhido = buscarPrato(codigo);
 
@@ -43,13 +37,7 @@ void adicionarAoCarrinho()
     }
 
     printf("Quantidade: ");
-    if (scanf("%d", &quantidade) != 1)
-    {
-        printf("\nEntrada invalida.\n");
-        limparBuffer();
-        pausar();
-        return;
-    }
+    quantidade = lerInteiro();
 
     if (quantidade < 1)
     {
@@ -114,13 +102,7 @@ void finalizarPedido()
 
     int idCliente;
     printf("\nInforme o ID do cliente: ");
-    if (scanf("%d", &idCliente) != 1)
-    {
-        printf("\nEntrada inválida.\n");
-        limparBuffer();
-        pausar();
-        return;
-    }
+    idCliente = lerInteiro();
 
     Cliente clienteSelecionado;
     if (!buscarClientePorId(idCliente, &clienteSelecionado))
@@ -178,14 +160,7 @@ void realizarPedido()
         printf("0 - Voltar\n");
         printf("Escolha: ");
 
-        if (scanf("%d", &op) != 1)
-        {
-            printf("\nEntrada invalida.\n");
-            limparBuffer();
-            pausar();
-            op = -1;
-            continue;
-        }
+        op = lerInteiro();
 
         switch (op)
         {
@@ -209,4 +184,3 @@ void realizarPedido()
 
     } while (op != 0);
 }
-

@@ -73,8 +73,6 @@ void realizarLogin() {
 
         printf("\nLogin realizado com sucesso!\n");
 
-        limparBuffer();
-
         pausar();
 
         menuAdministrador();
@@ -82,8 +80,6 @@ void realizarLogin() {
     } else {
 
         printf("\nUsuário ou senha incorretos!\n");
-
-        limparBuffer();
 
         pausar();
     }
@@ -103,18 +99,16 @@ void menuAdministrador() {
 
             case 1:
 
-                printf("\n=== Cadastro de Cliente ===\n");
-
-                menuClientes();
-
+                cadastrarCliente();
+                pausar();
                 break;
 
             case 2:
 
                 printf("\n=== Cadastro de Pratos ===\n");
 
-                menuPratos();
-                
+                cadastrarPrato();
+                pausar();
                 break;
 
             case 3:
@@ -129,8 +123,6 @@ void menuAdministrador() {
 
                 printf("\n=== Relatórios ===\n");
 
-                pausar();
-
                 gerarRelatorios();
 
                 break;
@@ -139,7 +131,6 @@ void menuAdministrador() {
 
                 printf("\nLogout realizado!\n");
 
-                limparBuffer();
                 pausar();
                 limparTela();
 
@@ -170,7 +161,7 @@ int menuLogin() {
     printf("3 - Sair\n");
 
     printf("Escolha: ");
-    scanf("%d", &opcao);
+    opcao = lerInteiro();
 
     return opcao;
 }
@@ -190,7 +181,7 @@ int menu_Administrador() {
     printf("5 - Logout\n");
 
     printf("Escolha: ");
-    scanf("%d", &opcao);
+    opcao = lerInteiro();
 
     return opcao;
 }

@@ -90,6 +90,8 @@ void carregarClientes() {
 
 void cadastrarCliente() {
 
+    limparTela();
+
     if(totalClientes >= MAX_CLIENTES) {
 
         printf("\nLimite de clientes atingido!\n");
@@ -137,94 +139,18 @@ void cadastrarCliente() {
     printf("\nCliente cadastrado com sucesso!\n");
 }
 
-// ================= Listagem ================= //
+// ================= Consultas Auxiliares ================= //
 
-void listarClientes() {
+int buscarClientePorId(int id, Cliente *out) {
 
-    if(totalClientes == 0) {
+    if (out == NULL) return 0;
 
-        printf("\nNenhum cliente cadastrado.\n");
-        return;
-    }
-
-    printf("\n==========================================================================\n");
-    printf("%-5s %-30s %-15s %-15s\n",
-           "ID",
-           "Nome",
-           "CPF",
-           "Telefone");
-
-    printf("==========================================================================\n");
-
-    for(int i = 0; i < totalClientes; i++) {
-
-        printf(
-            "%-5d %-30s %-15s %-15s\n",
-            clientes[i].id,
-            clientes[i].nome,
-            clientes[i].cpf,
-            clientes[i].telefone
-        );
-    }
-
-    printf("\nTotal de clientes cadastrados: %d\n", totalClientes);
-}
-
-int menu_Clientes() {
-
-    int opcao;
-
-    printf("\n===== CLIENTES =====\n");
-    printf("1 - Cadastrar Cliente\n");
-    printf("2 - Listar Clientes\n");
-    printf("3 - Voltar\n");
-
-    printf("Escolha: ");
-    scanf("%d", &opcao);
-
-    limparBuffer();
-
-    return opcao;
-}
-
-void menuClientes() {
-
-    int opcao;
-
-    do {
-
-        limparTela();
-
-        opcao = menu_Clientes();
-
-        switch(opcao) {
-
-            case 1:
-
-                cadastrarCliente();
-
-                pausar();
-
-                break;
-
-            case 2:
-
-                listarClientes();
-
-                pausar();
-
-                break;
-
-            case 3:
-
-                break;
-
-            default:
-
-                printf("\nOpção inválida!\n");
-
-                pausar();
+    for (int i = 0; i < totalClientes; i++) {
+        if (clientes[i].id == id) {
+            *out = clientes[i];
+            return 1;
         }
+    }
 
-    } while(opcao != 3);
+    return 0;
 }

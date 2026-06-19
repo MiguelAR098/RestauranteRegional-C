@@ -23,9 +23,10 @@ void limparBuffer() {
 
 void pausar() {
 
-    printf("\nPressione ENTER para continuar...");
+    char lixo[4];
 
-    getchar();
+    printf("\nPressione ENTER para continuar...");
+    fgets(lixo, sizeof(lixo), stdin);
 
 }
 
@@ -39,4 +40,37 @@ void removerNewline(char *str) {
 
     }
 
+}
+
+void lerTexto(char *texto, int tamanho) {
+
+    fgets(texto, tamanho, stdin);
+    removerNewline(texto);
+
+}
+
+int lerInteiro() {
+
+    char entrada[50];
+    int valor;
+
+    while (1) {
+
+        fgets(entrada, sizeof(entrada), stdin);
+
+        if (sscanf(entrada, "%d", &valor) == 1) {
+            return valor;
+        }
+
+        printf("Digite um número válido: ");
+    }
+}
+
+float lerFloat() {
+
+    char entrada[50];
+
+    fgets(entrada, sizeof(entrada), stdin);
+
+    return atof(entrada);
 }

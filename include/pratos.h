@@ -10,9 +10,8 @@ typedef struct
 } Prato;
 
 void cadastrarPrato();
-void listarPratos();
 Prato buscarPrato(int codigo);
-void menuPratos();
+void exibirCardapio();
 
 float calcularPreco(Prato p);
 int hojeESexta();

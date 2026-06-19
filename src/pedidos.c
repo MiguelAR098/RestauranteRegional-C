@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "pedidos.h"
 #include "pratos.h"
+#include "clientes.h"
 #include "utils.h"
 
 ItemPedido carrinho[100];
@@ -19,16 +20,10 @@ void adicionarAoCarrinho()
         return;
     }
 
-    listarPratos();
+    exibirCardapio();
 
     printf("\nCodigo do prato: ");
-    if (scanf("%d", &codigo) != 1)
-    {
-        printf("\nEntrada invalida.\n");
-        limparBuffer();
-        pausar();
-        return;
-    }
+    codigo = lerInteiro();
 
     Prato pratoEscolhido = buscarPrato(codigo);
 
@@ -42,13 +37,7 @@ void adicionarAoCarrinho()
     }
 
     printf("Quantidade: ");
-    if (scanf("%d", &quantidade) != 1)
-    {
-        printf("\nEntrada invalida.\n");
-        limparBuffer();
-        pausar();
-        return;
-    }
+    quantidade = lerInteiro();
 
     if (quantidade < 1)
     {
@@ -91,12 +80,67 @@ void visualizarCarrinho()
     printf("\nTotal: R$ %.2f\n", total);
 }
 
-// Finalizar pedido
+// Finalizar pedido (persiste em data/pedidos.txt)
 void finalizarPedido()
 {
+    if (totalItens == 0)
+    {
+        printf("\nCarrinho vazio! Nada para finalizar.\n");
+        pausar();
+        return;
+    }
+
+    // Mostra carrinho e calcula total
     visualizarCarrinho();
+
+    // Recalcula total (porque visualizarCarrinho só imprime)
+    float total = 0.0f;
+    for (int i = 0; i < totalItens; i++)
+    {
+        total += carrinho[i].prato.preco * carrinho[i].quantidade;
+    }
+
+    int idCliente;
+    printf("\nInforme o ID do cliente: ");
+    idCliente = lerInteiro();
+
+    Cliente clienteSelecionado;
+    if (!buscarClientePorId(idCliente, &clienteSelecionado))
+    {
+        printf("\nCliente não encontrado para o ID informado!\n");
+        pausar();
+        return;
+    }
+
+    // Gera IDPedido incremental
+    int novoIdPedido = 1;
+    FILE *fp = fopen("data/pedidos.txt", "r");
+    if (fp != NULL)
+    {
+        int idPedidoArquivo;
+        int idClienteArquivo;
+        float valorTotalArquivo;
+
+        while (fscanf(fp, "%d;%d;%f\n", &idPedidoArquivo, &idClienteArquivo, &valorTotalArquivo) == 3)
+        {
+            novoIdPedido = idPedidoArquivo + 1;
+        }
+        fclose(fp);
+    }
+
+    fp = fopen("data/pedidos.txt", "a");
+    if (fp == NULL)
+    {
+        printf("\nErro ao abrir o arquivo de pedidos para salvar.\n");
+        pausar();
+        return;
+    }
+
+    fprintf(fp, "%d;%d;%.2f\n", novoIdPedido, idCliente, total);
+    fclose(fp);
+
     totalItens = 0;
-    printf("\nPedido finalizado!\n");
+    printf("\nPedido finalizado e salvo com sucesso!\n");
     pausar();
 }
 
@@ -116,14 +160,7 @@ void realizarPedido()
         printf("0 - Voltar\n");
         printf("Escolha: ");
 
-        if (scanf("%d", &op) != 1)
-        {
-            printf("\nEntrada invalida.\n");
-            limparBuffer();
-            pausar();
-            op = -1;
-            continue;
-        }
+        op = lerInteiro();
 
         switch (op)
         {
@@ -147,4 +184,3 @@ void realizarPedido()
 
     } while (op != 0);
 }
-

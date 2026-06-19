@@ -13,7 +13,7 @@
 - Kauã César
 - Karen Evelyn
 - Elisangela Cristina
-- Andrews Cordeiro
+- Adrews Cordeiro
 - Misael José
 
 **Professor:** Jonatas da Silva Junior
@@ -225,7 +225,7 @@ Ticket Médio = Valor Total das Vendas ÷ Quantidade de Pedidos
 | Kauã César | Cadastro de Clientes |
 | Karen Evelyn | Cadastro de Pratos |
 | Elisangela Cristina | Relatórios e Métricas |
-| Andrews Cordeiro | Registro de Pedidos |
+| Adrews Cordeiro | Registro de Pedidos |
 | Misael José | Testes e Integração |
 
 ---

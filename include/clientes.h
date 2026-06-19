@@ -16,10 +16,8 @@ typedef struct {
 } Cliente;
 
 void cadastrarCliente();
-void listarClientes();
+int buscarClientePorId(int id, Cliente *out);
 void salvarClientes();
 void carregarClientes();
-int menu_Clientes();
-void menuClientes();
 
 #endif

@@ -67,7 +67,7 @@ void visualizarCarrinho()
 
     for (int i = 0; i < totalItens; i++)
     {
-        float subtotal = carrinho[i].prato.preco * carrinho[i].quantidade;
+        float subtotal = calcularPreco(carrinho[i].prato) * carrinho[i].quantidade;
 
         printf("%s x%d = R$ %.2f\n",
                carrinho[i].prato.nome,
@@ -97,7 +97,7 @@ void finalizarPedido()
     float total = 0.0f;
     for (int i = 0; i < totalItens; i++)
     {
-        total += carrinho[i].prato.preco * carrinho[i].quantidade;
+        total += calcularPreco(carrinho[i].prato) * carrinho[i].quantidade;
     }
 
     int idCliente;

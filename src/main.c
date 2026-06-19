@@ -9,7 +9,6 @@
 
 // ================= Protótipos ================= //
 
-
 // Menus
 int menuLogin();
 int menu_Administrador();

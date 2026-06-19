@@ -13,4 +13,7 @@ void cadastrarPrato();
 Prato buscarPrato(int codigo);
 void exibirCardapio();
 
+float calcularPreco(Prato p);
+int hojeESexta();
+
 #endif
